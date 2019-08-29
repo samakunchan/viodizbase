@@ -3,6 +3,11 @@
 #env
 /src/environments
 
+#cloud functions
+/functions
+.firebaserc
+firebase.json
+
 # compiled output
 /dist
 /tmp

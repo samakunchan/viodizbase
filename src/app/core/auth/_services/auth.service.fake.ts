@@ -11,9 +11,9 @@ import { environment } from '../../../../environments/environment';
 // CRUD
 import { QueryParamsModel, QueryResultsModel, HttpUtilsService } from '../../_base/crud';
 // Models
-import { User } from '../_models/user.model';
-import { Permission } from '../_models/permission.model';
-import { Role } from '../_models/role.model';
+import { User } from '..';
+import { Permission } from '..';
+import { Role } from '..';
 
 const API_USERS_URL = 'api/users';
 const API_PERMISSION_URL = 'api/permissions';
@@ -91,7 +91,6 @@ export class AuthService {
 
   getUserByToken(): Observable<User> {
     const userToken = localStorage.getItem(environment.authTokenKey);
-    console.log(userToken);
     if (!userToken) {
       return of(null);
     }

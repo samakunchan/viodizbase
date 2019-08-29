@@ -3,22 +3,22 @@ import { Address } from './address.model';
 import { SocialNetworks } from './social-networks.model';
 
 export class User extends BaseModel {
-  id: number;
-  username: string;
-  password: string;
-  email: string;
-  accessToken: string;
-  refreshToken: string;
-  roles: number[];
-  pic: string;
-  fullname: string;
-  occupation: string;
-  companyName: string;
-  phone: string;
-  address: Address;
-  socialNetworks: SocialNetworks;
+  id?: number;
+  username?: string;
+  password?: string;
+  email?: string;
+  accessToken?: string;
+  refreshToken?: string;
+  roles?: number[];
+  pic?: string;
+  fullname?: string;
+  occupation?: string;
+  companyName?: string;
+  phone?: string;
+  address?: Address;
+  socialNetworks?: SocialNetworks;
 
-  clear(): void {
+  clear?(): void {
     this.id = undefined;
     this.username = '';
     this.password = '';
@@ -36,4 +36,20 @@ export class User extends BaseModel {
     this.socialNetworks = new SocialNetworks();
     this.socialNetworks.clear();
   }
+}
+
+export class UserViodiz extends BaseModel {
+  admin?: boolean;
+  aud?: string;
+  auth_time?: number;
+  email?: string;
+  email_verified?: true;
+  exp?: number;
+  iat?: number;
+  iss?: string;
+  name?: string;
+  picture?: string;
+  sub?: string;
+  uid?: string;
+  user_id?: string;
 }

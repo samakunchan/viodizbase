@@ -29,14 +29,13 @@ export const currentAuthToken = createSelector(
 export const isUserLoaded = createSelector(
   selectAuthState,
   auth => {
-    console.log(auth.isUserLoaded);
     return auth.isUserLoaded;
   },
 );
 
 export const currentUser = createSelector(
   selectAuthState,
-  auth => auth.user,
+  auth =>  auth.user,
 );
 
 export const currentUserRoleIds = createSelector(

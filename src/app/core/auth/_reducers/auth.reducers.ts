@@ -19,10 +19,9 @@ export const initialAuthState: AuthState = {
 
 export function authReducer(state = initialAuthState, action: AuthActions): AuthState {
   switch (action.type) {
-    // Etape 4 de l'initialisation de l'app. Ensuite =>
+    // Etape 4 de l'initialisation de l'app. Ensuite => je ne sais pas encore
     case AuthActionTypes.Login: {
       const _token: string = action.payload.authToken;
-      console.log(_token);
       return {
         loggedIn: true,
         authToken: _token,
@@ -46,7 +45,6 @@ export function authReducer(state = initialAuthState, action: AuthActions): Auth
 
     case AuthActionTypes.UserLoaded: {
       const _user: User = action.payload.user;
-      console.log(_user);
       return {
         ...state,
         user: _user,

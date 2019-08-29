@@ -1,13 +1,16 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
-import { User } from '../_models/user.model';
-import { Permission } from '../_models/permission.model';
-import { Role } from '../_models/role.model';
+import { User } from '..';
+import { Permission } from '..';
+import { Role } from '..';
 import { catchError, map } from 'rxjs/operators';
 import { QueryParamsModel, QueryResultsModel } from '../../_base/crud';
 import { environment } from '../../../../environments/environment';
 import { Router } from '@angular/router';
+import * as firebase from 'firebase';
+import { AngularFireAuth } from '@angular/fire/auth';
+
 
 const API_USERS_URL = 'api/users';
 const API_PERMISSION_URL = 'api/permissions';
@@ -15,10 +18,41 @@ const API_ROLES_URL = 'api/roles';
 
 @Injectable()
 export class AuthService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private fireAuth: AngularFireAuth) {}
   // Authentication/Authorization
-  login(email: string, password: string): Observable<User> {
-    return this.http.post<User>(API_USERS_URL, { email, password });
+  // login(email: string, password: string): Observable<User> {
+  //   return this.http.post<User>(API_USERS_URL, { email, password });
+  // }
+
+  // Pour firebase
+  login(email: string, password: string): Observable<any> {
+    return this.loginObservable(email, password);
+  }
+  // Pour login firebase
+  loginObservable(email, password) {
+    return new Observable(observer => {
+      this.fireAuth.auth
+        .signInWithEmailAndPassword(email, password)
+        .then(result => {
+          this.fireAuth.auth.currentUser.getIdToken(true)
+            .then((idToken) => {
+              observer.next({data: result.user, idToken: idToken});
+            })
+            .catch((error) => {
+              observer.error(error);
+            });
+        })
+        .catch(error => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          if (errorCode === 'auth/wrong-password') {
+            alert('Mot de passe incorrect.');
+          } else {
+            alert(errorMessage);
+          }
+          observer.error(error);
+        });
+    });
   }
 
   getUserByToken(): Observable<User> {
@@ -26,6 +60,17 @@ export class AuthService {
     const httpHeaders = new HttpHeaders();
     httpHeaders.append('Authorization', 'Bearer ' + userToken);
     return this.http.get<User>(API_USERS_URL, { headers: httpHeaders });
+  }
+
+  getUserByTokenFromCloud() {
+    const userToken = localStorage.getItem(environment.authTokenKey);
+    return new Observable(observer => {
+      const tokenFromCloud = firebase.functions().httpsCallable('getUserWithToken');
+      tokenFromCloud({token: userToken})
+        .then(result => {
+        return observer.next(result.data);
+      }).catch(error => observer.error(error));
+    });
   }
 
   register(user: User): Observable<any> {

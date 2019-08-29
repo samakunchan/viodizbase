@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 // RxJS
 import { filter, mergeMap, tap, withLatestFrom } from 'rxjs/operators';
-import { defer, Observable } from 'rxjs';
+import { defer, Observable, of } from 'rxjs';
 // NGRX
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { Action, select, Store } from '@ngrx/store';
@@ -49,9 +49,8 @@ export class AuthEffects {
     ofType<UserRequested>(AuthActionTypes.UserRequested),
     withLatestFrom(this.store.pipe(select(isUserLoaded))), // isUserLoaded = true ou false
     filter(([action, _isUserLoaded]) => !_isUserLoaded),
-    mergeMap(([action, _isUserLoaded]) => this.auth.getUserByToken()), // Doit etre un observable afin de tap
+    mergeMap(([action, _isUserLoaded]) => this.auth.getUserByTokenFromCloud()), // Doit etre un observable afin de tap. L'objet user fed est la.
     tap(_user => {
-      console.log(_user);
       if (_user) {
         this.store.dispatch(new UserLoaded({ user: _user }));
       } else {
@@ -66,13 +65,14 @@ export class AuthEffects {
   @Effect()
   init$: Observable<Action> = defer(() => {
     const userToken = localStorage.getItem(environment.authTokenKey);
-    // let observableResult = of({ type: 'NO_ACTION' });
-    // if (userToken) {
-    //   console.log(userToken);
-    //   // Etape 1 de l'initialisation de l'app. Ensuite => ligne 23
-    //   observableResult = of(new Login({ authToken: userToken }));
-    // }
-    // return observableResult;
+    // Ajouter le current user de firebase ou le current user de nrgx qui détient le current user de firebase
+
+    let observableResult = of({ type: 'NO_ACTION' });
+    if (userToken) {
+      // Etape 1 de l'initialisation de l'app. Ensuite => ligne 23
+      observableResult = of(new Login({ authToken: userToken }));
+    }
+    return observableResult;
   });
 
   private returnUrl: string;
