@@ -11,11 +11,12 @@ import { MailModule } from './apps/mail/mail.module';
 import { ECommerceModule } from './apps/e-commerce/e-commerce.module';
 import { UserManagementModule } from './user-management/user-management.module';
 import { MyPageComponent } from './my-page/my-page.component';
+import { ProfilModule } from './profil/profil.module';
 
 @NgModule({
   declarations: [MyPageComponent],
   exports: [],
-  imports: [CommonModule, HttpClientModule, FormsModule, CoreModule, PartialsModule, MailModule, ECommerceModule, UserManagementModule],
+  imports: [CommonModule, HttpClientModule, FormsModule, CoreModule, PartialsModule, MailModule, ECommerceModule, UserManagementModule, ProfilModule],
   providers: [],
 })
 export class PagesModule {}

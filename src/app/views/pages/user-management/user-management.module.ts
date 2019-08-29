@@ -51,7 +51,6 @@ import {
   MatTooltipModule,
 } from '@angular/material';
 import { usersReducer, UserEffects } from '../../../core/auth';
-import { PersonalInformationComponent } from './users/personal-information/personal-information.component';
 
 const routes: Routes = [
   {
@@ -90,10 +89,6 @@ const routes: Routes = [
       {
         path: 'users/edit/:id',
         component: UserEditComponent,
-      },
-      {
-        path: 'users/personal-information',
-        component: PersonalInformationComponent,
       },
     ],
   },
@@ -163,7 +158,6 @@ const routes: Routes = [
     ChangePasswordComponent,
     AddressComponent,
     SocialNetworksComponent,
-    PersonalInformationComponent,
   ],
 })
 export class UserManagementModule {}

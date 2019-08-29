@@ -3,16 +3,16 @@ import { Injectable } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 // RxJS
 import { filter, mergeMap, tap, withLatestFrom } from 'rxjs/operators';
-import { defer, Observable, of } from 'rxjs';
+import { defer, Observable } from 'rxjs';
 // NGRX
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { Action, select, Store } from '@ngrx/store';
 // Auth actions
-import { AuthActionTypes, Login, Logout, Register, UserLoaded, UserRequested } from '../_actions/auth.actions';
-import { AuthService } from '../_services/index';
+import { AuthActionTypes, Login, Logout, Register, UserLoaded, UserRequested } from '..';
+import { AuthService } from '../_services';
 import { AppState } from '../../reducers';
 import { environment } from '../../../../environments/environment';
-import { isUserLoaded } from '../_selectors/auth.selectors';
+import { isUserLoaded } from '..';
 
 @Injectable()
 export class AuthEffects {
@@ -60,16 +60,19 @@ export class AuthEffects {
     }),
   );
 
+  /**
+   * Désactivation de l'effet init afin de relancer l'application avec le formulaire login
+   */
   @Effect()
   init$: Observable<Action> = defer(() => {
     const userToken = localStorage.getItem(environment.authTokenKey);
-    let observableResult = of({ type: 'NO_ACTION' });
-    if (userToken) {
-      console.log(userToken);
-      // Etape 1 de l'initialisation de l'app. Ensuite => ligne 23
-      observableResult = of(new Login({ authToken: userToken }));
-    }
-    return observableResult;
+    // let observableResult = of({ type: 'NO_ACTION' });
+    // if (userToken) {
+    //   console.log(userToken);
+    //   // Etape 1 de l'initialisation de l'app. Ensuite => ligne 23
+    //   observableResult = of(new Login({ authToken: userToken }));
+    // }
+    // return observableResult;
   });
 
   private returnUrl: string;

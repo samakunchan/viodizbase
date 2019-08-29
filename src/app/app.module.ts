@@ -59,6 +59,7 @@ import * as typescript from 'highlight.js/lib/languages/typescript';
 import * as scss from 'highlight.js/lib/languages/scss';
 import * as xml from 'highlight.js/lib/languages/xml';
 import * as json from 'highlight.js/lib/languages/json';
+import { AppFirebaseModule } from './app-firebase.module';
 
 // tslint:disable-next-line:class-name
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
@@ -87,6 +88,7 @@ export function hljsLanguages(): HighlightLanguage[] {
     BrowserAnimationsModule,
     BrowserModule,
     AppRoutingModule,
+    AppFirebaseModule,
     HttpClientModule,
     environment.isMockEnabled
       ? HttpClientInMemoryWebApiModule.forRoot(FakeApiService, {

@@ -46,6 +46,10 @@ const routes: Routes = [
         loadChildren: () => import('app/views/themes/demo7/content/builder/builder.module').then(m => m.BuilderModule),
       },
       {
+        path: 'profil',
+        loadChildren: () => import('app/views/pages/profil/profil.module').then(m => m.ProfilModule),
+      },
+      {
         path: 'error/403',
         component: ErrorPageComponent,
         data: {

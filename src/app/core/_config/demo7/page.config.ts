@@ -216,8 +216,11 @@ export class PageConfig {
         page: { title: 'Actions', desc: 'Actions example page' },
       },
     },
-    profile: {
-      page: { title: 'User Profile', desc: '' },
+    profil: {
+      'personnal-information': {
+        page: { title: 'Profil', desc: '' },
+      },
+      page: { title: 'Profil', desc: '' },
     },
     error: {
       404: {
