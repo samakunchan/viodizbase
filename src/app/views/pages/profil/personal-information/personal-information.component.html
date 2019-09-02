@@ -1,5 +1,6 @@
-<div class="kt-container  kt-container--fluid  kt-grid__item kt-grid__item--fluid">
+<div *ngIf="user$ | async as _user" class="kt-container  kt-container--fluid  kt-grid__item kt-grid__item--fluid">
   <!--Begin::App-->
+  <pre>{{ _user.photoUrl }}</pre>
   <div class="kt-grid kt-grid--desktop kt-grid--ver kt-grid--ver-desktop kt-app">
     <!--Begin:: App Aside Mobile Toggle-->
     <button class="kt-app__aside-close" id="kt_user_profile_aside_close">
@@ -90,21 +91,32 @@
           <div class="kt-widget kt-widget--user-profile-1">
             <div class="kt-widget__head">
               <div class="kt-widget__media">
-                <img src="./assets/media/users/100_1.jpg" alt="image" />
+                <img *ngIf="_user.photoURL" [src]="_user.photoURL" alt="image" />
+                <span *ngIf="!_user.photoURL" class="kt-badge kt-badge--lg kt-badge--rounded kt-badge--bold kt-font-success">
+                  {{ _user.displayName | firstLetter }}
+                </span>
               </div>
               <div class="kt-widget__content">
                 <div class="kt-widget__section">
-                  <a href="#" class="kt-widget__username">
-                    Jason Muller
-                    <i class="flaticon2-correct kt-font-success"></i>
+                  <a href="javascript:;" class="kt-widget__username">
+                    {{ _user.displayName }}
+                    <i *ngIf="_user.emailVerified" class="flaticon2-correct kt-font-success"></i>
+                    <i
+                      *ngIf="!_user.emailVerified"
+                      placement="right"
+                      ngbPopover="If your email is not verified, you cannot have access to your certificate"
+                      triggers="mouseenter:mouseleave"
+                      popoverTitle="Email not verified"
+                      class="flaticon2-cross kt-font-danger"
+                    >
+                    </i>
                   </a>
                   <span class="kt-widget__subtitle">
                     Head of Development
                   </span>
                 </div>
                 <div class="kt-widget__action">
-                  <button type="button" class="btn btn-info btn-sm">chat</button>&nbsp;
-                  <button type="button" class="btn btn-success btn-sm">follow</button>
+                  <button *ngIf="!_user.emailVerified" type="button" class="btn btn-info btn-sm">Send email verification</button>&nbsp;
                 </div>
               </div>
             </div>
@@ -112,11 +124,11 @@
               <div class="kt-widget__content">
                 <div class="kt-widget__info">
                   <span class="kt-widget__label">Email:</span>
-                  <a href="#" class="kt-widget__data">matt@fifestudios.com</a>
+                  <a href="javascript:;" class="kt-widget__data">{{ _user.email }}</a>
                 </div>
                 <div class="kt-widget__info">
                   <span class="kt-widget__label">Phone:</span>
-                  <a href="#" class="kt-widget__data">44(76)34254578</a>
+                  <a href="javascript:;" class="kt-widget__data">44(76)34254578</a>
                 </div>
                 <div class="kt-widget__info">
                   <span class="kt-widget__label">Location:</span>
@@ -280,16 +292,10 @@
                         class="kt-svg-icon"
                       >
                         <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                          <rect id="bound" x="0" y="0" width="24" height="24" />
+                          <rect x="0" y="0" width="24" height="24" />
+                          <circle fill="#000000" opacity="0.3" cx="12" cy="12" r="10" />
                           <path
-                            d="M6,2 L18,2 C18.5522847,2 19,2.44771525 19,3 L19,12 C19,12.5522847 18.5522847,13 18,13 L6,13 C5.44771525,13 5,12.5522847 5,12 L5,3 C5,2.44771525 5.44771525,2 6,2 Z M7.5,5 C7.22385763,5 7,5.22385763 7,5.5 C7,5.77614237 7.22385763,6 7.5,6 L13.5,6 C13.7761424,6 14,5.77614237 14,5.5 C14,5.22385763 13.7761424,5 13.5,5 L7.5,5 Z M7.5,7 C7.22385763,7 7,7.22385763 7,7.5 C7,7.77614237 7.22385763,8 7.5,8 L10.5,8 C10.7761424,8 11,7.77614237 11,7.5 C11,7.22385763 10.7761424,7 10.5,7 L7.5,7 Z"
-                            id="Combined-Shape"
-                            fill="#000000"
-                            opacity="0.3"
-                          />
-                          <path
-                            d="M3.79274528,6.57253826 L12,12.5 L20.2072547,6.57253826 C20.4311176,6.4108595 20.7436609,6.46126971 20.9053396,6.68513259 C20.9668779,6.77033951 21,6.87277228 21,6.97787787 L21,17 C21,18.1045695 20.1045695,19 19,19 L5,19 C3.8954305,19 3,18.1045695 3,17 L3,6.97787787 C3,6.70173549 3.22385763,6.47787787 3.5,6.47787787 C3.60510559,6.47787787 3.70753836,6.51099993 3.79274528,6.57253826 Z"
-                            id="Combined-Shape"
+                            d="M12,16 C12.5522847,16 13,16.4477153 13,17 C13,17.5522847 12.5522847,18 12,18 C11.4477153,18 11,17.5522847 11,17 C11,16.4477153 11.4477153,16 12,16 Z M10.591,14.868 L10.591,13.209 L11.851,13.209 C13.447,13.209 14.602,11.991 14.602,10.395 C14.602,8.799 13.447,7.581 11.851,7.581 C10.234,7.581 9.121,8.799 9.121,10.395 L7.336,10.395 C7.336,7.875 9.31,5.922 11.851,5.922 C14.392,5.922 16.387,7.875 16.387,10.395 C16.387,12.915 14.392,14.868 11.851,14.868 L10.591,14.868 Z"
                             fill="#000000"
                           />
                         </g>
@@ -313,9 +319,21 @@
                         class="kt-svg-icon"
                       >
                         <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                          <rect id="bound" x="0" y="0" width="24" height="24" />
-                          <rect id="Rectangle-7-Copy" fill="#000000" x="2" y="5" width="19" height="4" rx="1" />
-                          <rect id="Rectangle-7-Copy-4" fill="#000000" opacity="0.3" x="2" y="11" width="19" height="10" rx="1" />
+                          <polygon points="0 0 24 0 24 24 0 24" />
+                          <path
+                            d="M22,15 L22,19 C22,20.1045695 21.1045695,21 20,21 L8,21 C5.790861,21 4,19.209139 4,17 C4,14.790861 5.790861,13 8,13 L20,13 C21.1045695,13 22,13.8954305 22,15 Z M7,19 C8.1045695,19 9,18.1045695 9,17 C9,15.8954305 8.1045695,15 7,15 C5.8954305,15 5,15.8954305 5,17 C5,18.1045695 5.8954305,19 7,19 Z"
+                            fill="#000000"
+                            opacity="0.3"
+                          />
+                          <path
+                            d="M15.5421357,5.69999981 L18.3705628,8.52842693 C19.1516114,9.30947552 19.1516114,10.5758055 18.3705628,11.3568541 L9.88528147,19.8421354 C8.3231843,21.4042326 5.79052439,21.4042326 4.22842722,19.8421354 C2.66633005,18.2800383 2.66633005,15.7473784 4.22842722,14.1852812 L12.7137086,5.69999981 C13.4947572,4.91895123 14.7610871,4.91895123 15.5421357,5.69999981 Z M7,19 C8.1045695,19 9,18.1045695 9,17 C9,15.8954305 8.1045695,15 7,15 C5.8954305,15 5,15.8954305 5,17 C5,18.1045695 5.8954305,19 7,19 Z"
+                            fill="#000000"
+                            opacity="0.3"
+                          />
+                          <path
+                            d="M5,3 L9,3 C10.1045695,3 11,3.8954305 11,5 L11,17 C11,19.209139 9.209139,21 7,21 C4.790861,21 3,19.209139 3,17 L3,5 C3,3.8954305 3.8954305,3 5,3 Z M7,19 C8.1045695,19 9,18.1045695 9,17 C9,15.8954305 8.1045695,15 7,15 C5.8954305,15 5,15.8954305 5,17 C5,18.1045695 5.8954305,19 7,19 Z"
+                            fill="#000000"
+                          />
                         </g>
                       </svg>
                     </span>
@@ -399,7 +417,7 @@
                 </div>
               </div>
             </div>
-            <form class="kt-form kt-form--label-right">
+            <form [formGroup]="personnalInformationForm" class="kt-form kt-form--label-right">
               <div class="kt-portlet__body">
                 <div class="kt-section kt-section--first">
                   <div class="kt-section__body">
@@ -414,12 +432,24 @@
                       <div class="col-lg-9 col-xl-6">
                         <div class="kt-avatar kt-avatar--outline kt-avatar--circle" id="kt_apps_user_add_avatar">
                           <div
+                            *ngIf="!_user.photoURL"
                             class="kt-avatar__holder"
-                            style='background-image: url("http://keenthemes.com/metronic/preview/default/custom/user/assets/media/users/100_1.jpg");'
+                            [ngStyle]="{ 'background-image': 'url(' + 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/20625/avatar-bg.png' + ')' }"
+                          ></div>
+                          <div
+                            *ngIf="_user.photoURL"
+                            class="kt-avatar__holder"
+                            [ngStyle]="{ 'background-image': 'url(' + _user.photoURL + ')' }"
                           ></div>
                           <label class="kt-avatar__upload" data-toggle="kt-tooltip" title="" data-original-title="Change avatar">
                             <i class="fa fa-pen"></i>
-                            <input type="file" name="profile_avatar" accept=".png, .jpg, .jpeg" />
+                            <input
+                              (change)="detectFiles($event)"
+                              formControlName="avatar"
+                              type="file"
+                              name="profile_avatar"
+                              accept=".png, .jpg, .jpeg"
+                            />
                           </label>
                           <span class="kt-avatar__cancel" data-toggle="kt-tooltip" title="" data-original-title="Cancel avatar">
                             <i class="fa fa-times"></i>
@@ -430,19 +460,19 @@
                     <div class="form-group row">
                       <label class="col-xl-3 col-lg-3 col-form-label">First Name</label>
                       <div class="col-lg-9 col-xl-6">
-                        <input class="form-control" type="text" value="Nick" />
+                        <input class="form-control" formControlName="firstname" type="text" value="Nick" />
                       </div>
                     </div>
                     <div class="form-group row">
                       <label class="col-xl-3 col-lg-3 col-form-label">Last Name</label>
                       <div class="col-lg-9 col-xl-6">
-                        <input class="form-control" type="text" value="Bold" />
+                        <input class="form-control" formControlName="lastname" type="text" value="Bold" />
                       </div>
                     </div>
                     <div class="form-group row">
                       <label class="col-xl-3 col-lg-3 col-form-label">Company Name</label>
                       <div class="col-lg-9 col-xl-6">
-                        <input class="form-control" type="text" value="Loop Inc." />
+                        <input class="form-control" formControlName="company" type="text" value="Loop Inc." />
                         <span class="form-text text-muted">If you want your invoices addressed to a company. Leave blank to use your full name.</span>
                       </div>
                     </div>

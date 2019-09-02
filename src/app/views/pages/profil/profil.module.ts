@@ -3,6 +3,9 @@ import { CommonModule } from '@angular/common';
 import { ProfilComponent } from './profil.component';
 import { RouterModule, Routes } from '@angular/router';
 import { PersonalInformationComponent } from './personal-information/personal-information.component';
+import { CoreModule } from '../../../core/core.module';
+import { NgbPopoverModule } from '@ng-bootstrap/ng-bootstrap';
+import { ReactiveFormsModule } from '@angular/forms';
 
 const routes: Routes = [
   {
@@ -23,6 +26,6 @@ const routes: Routes = [
 ];
 @NgModule({
   declarations: [ProfilComponent, PersonalInformationComponent],
-  imports: [CommonModule, RouterModule.forChild(routes)],
+  imports: [CommonModule, RouterModule.forChild(routes), CoreModule, NgbPopoverModule, ReactiveFormsModule],
 })
 export class ProfilModule {}

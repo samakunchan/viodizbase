@@ -1,12 +1,12 @@
 // Actions
 import { AuthActions, AuthActionTypes } from '../_actions/auth.actions';
 // Models
-import { User } from '../_models/user.model';
+import { User, UserViodizRegister } from '../_models/user.model';
 
 export interface AuthState {
   loggedIn: boolean;
   authToken: string;
-  user: User;
+  user: UserViodizRegister;
   isUserLoaded: boolean;
 }
 
@@ -44,14 +44,13 @@ export function authReducer(state = initialAuthState, action: AuthActions): Auth
       return initialAuthState;
 
     case AuthActionTypes.UserLoaded: {
-      const _user: User = action.payload.user;
+      const _user: UserViodizRegister = action.payload.user;
       return {
         ...state,
         user: _user,
         isUserLoaded: true,
       };
     }
-
     default:
       return state;
   }

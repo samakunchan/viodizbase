@@ -61,22 +61,22 @@ export class SearchDropdownComponent implements OnInit {
         type: 0,
       },
       {
-        icon: '<img src="assets/media/users/user1.jpg" alt="">',
+        icon: '<img src="assets/media/user/user1.jpg" alt="">',
         text: 'Amanda Anderson',
         type: 1,
       },
       {
-        icon: '<img src="assets/media/users/user2.jpg" alt="">',
+        icon: '<img src="assets/media/user/user2.jpg" alt="">',
         text: 'Kennedy Lloyd',
         type: 1,
       },
       {
-        icon: '<img src="assets/media/users/user3.jpg" alt="">',
+        icon: '<img src="assets/media/user/user3.jpg" alt="">',
         text: 'Megan Weldon',
         type: 1,
       },
       {
-        icon: '<img src="assets/media/users/user4.jpg" alt="">',
+        icon: '<img src="assets/media/user/user4.jpg" alt="">',
         text: 'Marc-André ter Stegen',
         type: 1,
       },

@@ -20,7 +20,7 @@ import { AuthNoticeService, AuthService, Login } from '../../../../core/auth';
 //   EMAIL: 'admin@demo.com',
 //   PASSWORD: 'demo',
 // };
-
+// julie3@test.com
 const DEMO_PARAMS = {
   EMAIL: 'samakunchan@gmail.com',
   PASSWORD: '123456',
@@ -35,6 +35,8 @@ export class LoginComponent implements OnInit, OnDestroy {
   // Public params
   loginForm: FormGroup;
   loading = false;
+  loadingGoogle = false;
+  loadingFacebook = false;
   isLoggedIn$: Observable<boolean>;
   errors: any = [];
 
@@ -95,6 +97,27 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.loading = false;
   }
 
+  onGoogleSignIn(event) {
+    event.preventDefault();
+    this.loadingGoogle = true;
+    this.auth.signInWithGoogle().then(user => {
+      if (user) {
+        this.store.dispatch(new Login({ authToken: user.idToken }));
+        this.router.navigateByUrl(this.returnUrl); // Main page
+      }
+    });
+  }
+
+  onFacebookSignIn(event) {
+    event.preventDefault();
+    this.loadingFacebook = true;
+    this.auth.signInWithFacebook().then(user => {
+      if (user) {
+        this.store.dispatch(new Login({ authToken: user.idToken }));
+        this.router.navigateByUrl(this.returnUrl); // Main page
+      }
+    });
+  }
   /**
    * Form initalization
    * Default params, validators

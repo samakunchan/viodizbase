@@ -76,21 +76,11 @@ export class RegisterComponent implements OnInit, OnDestroy {
   initRegisterForm() {
     this.registerForm = this.fb.group(
       {
-        fullname: ['', Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(100)])],
-        email: [
-          '',
-          Validators.compose([
-            Validators.required,
-            Validators.email,
-            Validators.minLength(3),
-            // https://stackoverflow.com/questions/386294/what-is-the-maximum-length-of-a-valid-email-address
-            Validators.maxLength(320),
-          ]),
-        ],
+        email: ['', Validators.compose([Validators.required, Validators.email, Validators.minLength(3), Validators.maxLength(320)])],
         username: ['', Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(100)])],
         password: ['', Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(100)])],
         confirmPassword: ['', Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(100)])],
-        agree: [false, Validators.compose([Validators.required])],
+        agree: ['', Validators.compose([Validators.required])],
       },
       {
         validator: ConfirmPasswordValidator.MatchPassword,
@@ -123,15 +113,16 @@ export class RegisterComponent implements OnInit, OnDestroy {
     _user.clear();
     _user.email = controls['email'].value;
     _user.username = controls['username'].value;
-    _user.fullname = controls['fullname'].value;
+    // _user.fullname = controls['fullname'].value;
     _user.password = controls['password'].value;
     _user.roles = [];
     this.auth
       .register(_user)
       .pipe(
         tap(user => {
+          console.log(user);
           if (user) {
-            this.store.dispatch(new Register({ authToken: user.accessToken }));
+            this.store.dispatch(new Register({ authToken: user.idToken }));
             // pass notice message to the login page
             this.authNoticeService.setNotice(this.translate.instant('AUTH.REGISTER.SUCCESS'), 'success');
             this.router.navigateByUrl('/auth/login');

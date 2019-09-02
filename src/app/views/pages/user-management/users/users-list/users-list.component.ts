@@ -144,7 +144,7 @@ export class UsersListComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Load users list
+   * Load user list
    */
   loadUsersList() {
     this.selection.clear();
@@ -253,6 +253,6 @@ export class UsersListComponent implements OnInit, OnDestroy {
    * @param id
    */
   editUser(id) {
-    this.router.navigate(['../users/edit', id], { relativeTo: this.activatedRoute });
+    this.router.navigate(['../user/edit', id], { relativeTo: this.activatedRoute });
   }
 }

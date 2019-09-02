@@ -71,23 +71,23 @@ const routes: Routes = [
         component: UsersListComponent,
       },
       {
-        path: 'users:id',
+        path: 'user:id',
         component: UsersListComponent,
       },
       {
-        path: 'users/add',
+        path: 'user/add',
         component: UserEditComponent,
       },
       {
-        path: 'users/add:id',
+        path: 'user/add:id',
         component: UserEditComponent,
       },
       {
-        path: 'users/edit',
+        path: 'user/edit',
         component: UserEditComponent,
       },
       {
-        path: 'users/edit/:id',
+        path: 'user/edit/:id',
         component: UserEditComponent,
       },
     ],

@@ -60,6 +60,7 @@ import * as scss from 'highlight.js/lib/languages/scss';
 import * as xml from 'highlight.js/lib/languages/xml';
 import * as json from 'highlight.js/lib/languages/json';
 import { AppFirebaseModule } from './app-firebase.module';
+import { AngularFireStorageModule } from '@angular/fire/storage';
 
 // tslint:disable-next-line:class-name
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
@@ -108,6 +109,7 @@ export function hljsLanguages(): HighlightLanguage[] {
     TranslateModule.forRoot(),
     MatProgressSpinnerModule,
     InlineSVGModule.forRoot(),
+    AngularFireStorageModule,
   ],
   exports: [],
   providers: [

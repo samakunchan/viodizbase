@@ -6,7 +6,7 @@ import { UserActions, UserActionTypes } from '../_actions/user.actions';
 // CRUD
 import { QueryParamsModel } from '../../_base/crud';
 // Models
-import { User } from '../_models/user.model';
+import { User, UserViodizRegister } from '../_models/user.model';
 
 // tslint:disable-next-line:no-empty-interface
 export interface UsersState extends EntityState<User> {
@@ -18,6 +18,7 @@ export interface UsersState extends EntityState<User> {
   showInitWaitingMessage: boolean;
 }
 
+// export const adapter: EntityAdapter<User> = createEntityAdapter<User>();
 export const adapter: EntityAdapter<User> = createEntityAdapter<User>();
 
 export const initialUsersState: UsersState = adapter.getInitialState({

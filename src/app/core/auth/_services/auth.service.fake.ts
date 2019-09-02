@@ -15,7 +15,7 @@ import { User } from '..';
 import { Permission } from '..';
 import { Role } from '..';
 
-const API_USERS_URL = 'api/users';
+const API_USERS_URL = 'api/user';
 const API_PERMISSION_URL = 'api/permissions';
 const API_ROLES_URL = 'api/roles';
 
@@ -53,7 +53,7 @@ export class AuthService {
     user.roles = [2]; // Manager
     user.accessToken = 'access-token-' + Math.random();
     user.refreshToken = 'access-token-' + Math.random();
-    user.pic = './assets/media/users/default.jpg';
+    user.pic = './assets/media/user/default.jpg';
 
     const httpHeaders = new HttpHeaders();
     httpHeaders.set('Content-Type', 'application/json');

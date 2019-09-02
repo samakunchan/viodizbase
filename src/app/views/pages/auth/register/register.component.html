@@ -11,21 +11,6 @@
     <form class="kt-login__form kt-form" [formGroup]="registerForm" autocomplete="off">
       <div class="form-group">
         <mat-form-field>
-          <mat-label>Fullname</mat-label>
-          <input matInput type="text" placeholder="Fullname" formControlName="fullname" />
-          <mat-error *ngIf="isControlHasError('fullname', 'required')">
-            <strong>{{ 'AUTH.VALIDATION.REQUIRED_FIELD' | translate }}</strong>
-          </mat-error>
-          <mat-error *ngIf="isControlHasError('fullname', 'minLength')">
-            <strong>{{ 'AUTH.VALIDATION.MIN_LENGTH_FIELD' | translate }} 3</strong>
-          </mat-error>
-          <mat-error *ngIf="isControlHasError('fullname', 'maxLength')">
-            <strong>{{ 'AUTH.VALIDATION.MAX_LENGTH_FIELD' | translate }} 100</strong>
-          </mat-error>
-        </mat-form-field>
-      </div>
-      <div class="form-group">
-        <mat-form-field>
           <mat-label>{{ 'AUTH.INPUT.EMAIL' | translate }}</mat-label>
           <input matInput type="email" placeholder="{{ 'AUTH.INPUT.EMAIL' | translate }}" formControlName="email" autocomplete="off" />
           <mat-error *ngIf="isControlHasError('email', 'required')">
@@ -117,6 +102,7 @@
           (click)="submit()"
           id="kt_login_signin_submit"
           class="btn btn-primary btn-elevate kt-login__btn-primary"
+          [disabled]="registerForm.invalid"
           [ngClass]="{ 'kt-spinner kt-spinner--right kt-spinner--md kt-spinner--light': loading }"
         >
           {{ 'AUTH.GENERAL.SUBMIT_BUTTON' | translate }}

@@ -6,8 +6,8 @@ import { each, find, some } from 'lodash';
 import { selectAllRoles } from './role.selectors';
 import { selectAllPermissions } from './permission.selectors';
 // Models
-import { Role } from '../_models/role.model';
-import { Permission } from '../_models/permission.model';
+import { Role } from '..';
+import { Permission } from '..';
 
 export const selectAuthState = state => state.auth;
 
@@ -35,7 +35,7 @@ export const isUserLoaded = createSelector(
 
 export const currentUser = createSelector(
   selectAuthState,
-  auth =>  auth.user,
+  auth => auth.user,
 );
 
 export const currentUserRoleIds = createSelector(

@@ -302,7 +302,7 @@ export class MenuConfig {
               submenu: [
                 {
                   title: 'Users',
-                  page: 'user-management/users',
+                  page: 'user-management/user',
                 },
                 {
                   title: 'Roles',
@@ -687,7 +687,7 @@ export class MenuConfig {
               submenu: [
                 {
                   title: 'Users',
-                  page: 'user-management/users',
+                  page: 'user-management/user',
                 },
                 {
                   title: 'Roles',

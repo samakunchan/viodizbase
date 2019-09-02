@@ -7,7 +7,7 @@ import { select, Store } from '@ngrx/store';
 // State
 import { AppState } from '../../../../../core/reducers';
 import { currentUser, Logout, User } from '../../../../../core/auth';
-import { UserViodiz } from '../../../../../core/auth/_models/user.model';
+import { Users, UserViodiz, UserViodizRegister } from '../../../../../core/auth/_models/user.model';
 
 @Component({
   selector: 'kt-user-profile',
@@ -15,7 +15,7 @@ import { UserViodiz } from '../../../../../core/auth/_models/user.model';
 })
 export class UserProfileComponent implements OnInit {
   // Public properties
-  user$: Observable<UserViodiz>;
+  user$: Observable<Users>;
 
   @Input() avatar: boolean = true;
   @Input() greeting: boolean = true;

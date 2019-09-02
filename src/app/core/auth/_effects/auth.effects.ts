@@ -2,20 +2,37 @@
 import { Injectable } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 // RxJS
-import { filter, mergeMap, tap, withLatestFrom } from 'rxjs/operators';
+import { filter, map, mergeMap, tap, withLatestFrom } from 'rxjs/operators';
 import { defer, Observable, of } from 'rxjs';
 // NGRX
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { Action, select, Store } from '@ngrx/store';
 // Auth actions
-import { AuthActionTypes, Login, Logout, Register, UserLoaded, UserRequested } from '..';
+import {
+  Address,
+  AuthActionTypes,
+  CurrentUserUpdate,
+  Login,
+  Logout,
+  Register,
+  SocialNetworks,
+  UserCreated,
+  UserLoaded,
+  UserRequested,
+  UsersActionToggleLoading,
+} from '..';
 import { AuthService } from '../_services';
 import { AppState } from '../../reducers';
 import { environment } from '../../../../environments/environment';
 import { isUserLoaded } from '..';
+import { Users, UserViodizRegister } from '../_models/user.model';
 
 @Injectable()
 export class AuthEffects {
+  user: UserViodizRegister;
+  showActionLoadingDistpatcher = new UsersActionToggleLoading({ isLoading: true });
+  hideActionLoadingDistpatcher = new UsersActionToggleLoading({ isLoading: false });
+
   @Effect({ dispatch: false })
   login$ = this.actions$.pipe(
     ofType<Login>(AuthActionTypes.Login),
@@ -52,16 +69,41 @@ export class AuthEffects {
     mergeMap(([action, _isUserLoaded]) => this.auth.getUserByTokenFromCloud()), // Doit etre un observable afin de tap. L'objet user fed est la.
     tap(_user => {
       if (_user) {
-        this.store.dispatch(new UserLoaded({ user: _user }));
+        // On se contente de savoir si le token est valide, on utilise le authState pour la suite pour avoir les données en instantané
+        this.auth.getUser().subscribe((result: Users) => {
+          // Apparemment cela ne marche pas a l'ouverture de l'application
+          const user = new Users('', '', '', false, '', '', '', '', '', new Address(), new SocialNetworks(), result.metadata);
+          user.uid = result.uid;
+          user.displayName = result.displayName;
+          user.email = result.email;
+          user.emailVerified = result.emailVerified;
+          user.photoURL = result.photoURL;
+          this.store.dispatch(new UserLoaded({ user }));
+        });
       } else {
         this.store.dispatch(new Logout());
       }
     }),
   );
 
-  /**
-   * Désactivation de l'effet init afin de relancer l'application avec le formulaire login
-   */
+  @Effect({ dispatch: false })
+  updateCurrentUser = this.actions$.pipe(
+    ofType<CurrentUserUpdate>(AuthActionTypes.CurrentUserUpdate),
+    mergeMap(({ payload }) => {
+      return this.auth.updateUserProfil(payload.user).pipe(
+        tap(result => {
+          const user = new Users('', '', '', false, '', '', '', '', '', new Address(), new SocialNetworks());
+          user.uid = result.uid;
+          user.displayName = result.displayName;
+          user.email = result.email;
+          user.emailVerified = result.emailVerified;
+          user.photoURL = result.photoURL;
+          return this.store.dispatch(new UserLoaded({ user }));
+        }),
+      );
+    }),
+  );
+
   @Effect()
   init$: Observable<Action> = defer(() => {
     const userToken = localStorage.getItem(environment.authTokenKey);

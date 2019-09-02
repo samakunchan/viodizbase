@@ -7,7 +7,7 @@ export { RolesDataSource } from './_data-sources/roles.datasource';
 export { UsersDataSource } from './_data-sources/users.datasource';
 
 // ACTIONS
-export { Login, Logout, Register, UserRequested, UserLoaded, AuthActionTypes, AuthActions } from './_actions/auth.actions';
+export { Login, Logout, Register, UserRequested, UserLoaded, AuthActionTypes, AuthActions, CurrentUserUpdate } from './_actions/auth.actions';
 export { AllPermissionsRequested, AllPermissionsLoaded, PermissionActionTypes, PermissionActions } from './_actions/permission.actions';
 export {
   RoleOnServerCreated,
@@ -58,7 +58,9 @@ export {
   currentUserPermissions,
   checkHasUserPermission,
 } from './_selectors/auth.selectors';
+
 export { selectPermissionById, selectAllPermissions, selectAllPermissionsIds, allPermissionsLoaded } from './_selectors/permission.selectors';
+
 export {
   selectRoleById,
   selectAllRoles,

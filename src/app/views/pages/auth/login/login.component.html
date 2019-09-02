@@ -80,17 +80,20 @@
 
     <!--begin::Options-->
     <div class="kt-login__options">
-      <a href="https://www.facebook.com/keenthemes/" target="_blank" class="btn btn-primary kt-btn">
+      <a
+        (click)="onFacebookSignIn($event)"
+        [ngClass]="{ 'kt-spinner kt-spinner--right kt-spinner--md kt-spinner--light': loadingFacebook }"
+        class="btn btn-primary kt-btn text-white"
+      >
         <i class="fab fa-facebook-f"></i>
         Facebook
       </a>
 
-      <a href="https://twitter.com/keenthemes/" target="_blank" class="btn btn-info kt-btn">
-        <i class="fab fa-twitter"></i>
-        Twitter
-      </a>
-
-      <a href="javascript:;" class="btn btn-danger kt-btn">
+      <a
+        (click)="onGoogleSignIn($event)"
+        [ngClass]="{ 'kt-spinner kt-spinner--right kt-spinner--md kt-spinner--light': loadingGoogle }"
+        class="btn btn-danger kt-btn text-white"
+      >
         <i class="fab fa-google"></i>
         Google
       </a>
