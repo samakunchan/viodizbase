@@ -44,8 +44,7 @@ export class SocialNetworksComponent implements OnInit {
    */
   ngOnInit() {
     if (!this.socialNetworksSubject.value) {
-      const newSocialNetworks = new SocialNetworks();
-      newSocialNetworks.clear();
+      const newSocialNetworks = new SocialNetworks('', '', '', '');
       this.socialNetworksSubject.next(newSocialNetworks);
     }
 
@@ -88,8 +87,7 @@ export class SocialNetworksComponent implements OnInit {
       return;
     }
 
-    const newSocialNetworks = new SocialNetworks();
-    newSocialNetworks.clear();
+    const newSocialNetworks = new SocialNetworks('', '', '', '');
     newSocialNetworks.linkedIn = controls['linkedIn'].value;
     newSocialNetworks.facebook = controls['facebook'].value;
     newSocialNetworks.twitter = controls['twitter'].value;

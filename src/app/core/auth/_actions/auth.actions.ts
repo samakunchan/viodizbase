@@ -1,5 +1,5 @@
 import { Action } from '@ngrx/store';
-import { User, Users, UserViodizRegister } from '../_models/user.model';
+import { User, Users } from '../_models/user.model';
 
 export enum AuthActionTypes {
   Login = '[Login] Action',
@@ -7,7 +7,8 @@ export enum AuthActionTypes {
   Register = '[Register] Action',
   UserRequested = '[Request User] Action',
   UserLoaded = '[Load User] Auth API',
-  CurrentUserUpdate = '[Update current user] Auth API',
+  CurrentUserUpdatePhoto = '[Update current user photo] Auth API',
+  CurrentUserUpdateAddInfos = '[Update current user additionnal information] Auth API',
 }
 
 export class Login implements Action {
@@ -34,9 +35,13 @@ export class UserLoaded implements Action {
   constructor(public payload: { user: Users }) {}
 }
 
-export class CurrentUserUpdate implements Action {
-  readonly type = AuthActionTypes.CurrentUserUpdate;
+export class CurrentUserUpdatePhoto implements Action {
+  readonly type = AuthActionTypes.CurrentUserUpdatePhoto;
   constructor(public payload: { user: Users }) {}
 }
 
-export type AuthActions = Login | Logout | Register | UserRequested | UserLoaded | CurrentUserUpdate;
+export class CurrentUserUpdateAddInfos {
+  readonly type = AuthActionTypes.CurrentUserUpdateAddInfos;
+  constructor(public payload: { user: Users }) {}
+}
+export type AuthActions = Login | Logout | Register | UserRequested | UserLoaded | CurrentUserUpdatePhoto | CurrentUserUpdateAddInfos;

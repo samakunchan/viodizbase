@@ -1,13 +1,3 @@
 export class SocialNetworks {
-  linkedIn: string;
-  facebook: string;
-  twitter: string;
-  instagram: string;
-
-  clear() {
-    this.linkedIn = '';
-    this.facebook = '';
-    this.twitter = '';
-    this.instagram = '';
-  }
+  constructor(public linkedIn?: string, public facebook?: string, public twitter?: string, public instagram?: string) {}
 }

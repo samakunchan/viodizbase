@@ -7,7 +7,7 @@ import { select, Store } from '@ngrx/store';
 // State
 import { AppState } from '../../../../../core/reducers';
 import { currentUser, Logout, User } from '../../../../../core/auth';
-import { Users, UserViodiz, UserViodizRegister } from '../../../../../core/auth/_models/user.model';
+import { Users } from '../../../../../core/auth/_models/user.model';
 
 @Component({
   selector: 'kt-user-profile',

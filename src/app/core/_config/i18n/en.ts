@@ -14,11 +14,48 @@ export const locale = {
       APPS: 'Apps',
       DASHBOARD: 'Dashboard',
     },
+    NOTIFICATIONS: {
+      SUCCESS: 'Your profile account has been updated.',
+      SUCCESSPHOTO: 'Your profile\'s photo account has been updated.',
+      FAILURE: 'The update\'s account has been canceled.'
+    },
+    PERSOINFOS: {
+      ASIDE: {
+        EMAILVERIFICATION: 'Send email verification',
+        GUEST: 'Guest',
+        PHONE: 'Phone:',
+        LOCATION: 'Location:',
+        OVERVIEW: 'Profile Overview',
+        PERSO_INFOS: 'Personal Information',
+        ACCOUNT_INFOS: 'Account Information',
+        PASSWORD_CHANGE: 'Change Password',
+        FAQ: 'F.A.Q',
+        SUPPORT: 'Support'
+      },
+      NORMAL: {
+        HEADER: {
+          TITLE: 'Personal Information',
+          DESC: 'update your personal information'
+        },
+        PROFIL_INFO: 'Profile info:',
+        CONTACT_INFO: 'Contact info:',
+        NETWORK_INFO: 'Social Network:',
+        FIRSTNAME: 'First Name',
+        LASTNAME: 'Last Name',
+        OCCUPATION: 'Occupation',
+        COMPANY_NAME: 'Company Name',
+        PHONE: 'Contact Phone',
+        ADDRESS: 'Address',
+        POSTCODE: 'Post Code',
+        CITY: 'City',
+        WEBSITE: 'Company Site'
+      }
+    },
     AUTH: {
       GENERAL: {
         OR: 'Or',
         SUBMIT_BUTTON: 'Submit',
-        NO_ACCOUNT: "Don't have an account?",
+        NO_ACCOUNT: 'Don\'t have an account?',
         SIGNUP_BUTTON: 'Sign Up',
         FORGOT_BUTTON: 'Forgot Password',
         BACK_BUTTON: 'Back',

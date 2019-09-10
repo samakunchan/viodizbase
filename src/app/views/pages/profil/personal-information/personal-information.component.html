@@ -1,6 +1,5 @@
 <div *ngIf="user$ | async as _user" class="kt-container  kt-container--fluid  kt-grid__item kt-grid__item--fluid">
   <!--Begin::App-->
-  <pre>{{ _user.photoUrl }}</pre>
   <div class="kt-grid kt-grid--desktop kt-grid--ver kt-grid--ver-desktop kt-app">
     <!--Begin:: App Aside Mobile Toggle-->
     <button class="kt-app__aside-close" id="kt_user_profile_aside_close">
@@ -98,25 +97,52 @@
               </div>
               <div class="kt-widget__content">
                 <div class="kt-widget__section">
-                  <a href="javascript:;" class="kt-widget__username">
-                    {{ _user.displayName }}
-                    <i *ngIf="_user.emailVerified" class="flaticon2-correct kt-font-success"></i>
-                    <i
-                      *ngIf="!_user.emailVerified"
-                      placement="right"
-                      ngbPopover="If your email is not verified, you cannot have access to your certificate"
-                      triggers="mouseenter:mouseleave"
-                      popoverTitle="Email not verified"
-                      class="flaticon2-cross kt-font-danger"
-                    >
-                    </i>
-                  </a>
-                  <span class="kt-widget__subtitle">
-                    Head of Development
-                  </span>
+                  <ng-template [ngIf]="_user.firstname =='' && _user.lastname ==''" [ngIfElse]="fullname">
+                    <a href="javascript:;" class="kt-widget__username">
+                      {{ _user.displayName | titlecase }}
+                      <i *ngIf="_user.emailVerified" class="flaticon2-correct kt-font-success"></i>
+                      <i
+                        *ngIf="!_user.emailVerified"
+                        placement="right"
+                        ngbPopover="If your email is not verified, you cannot have access to your certificate"
+                        triggers="mouseenter:mouseleave"
+                        popoverTitle="Email not verified"
+                        class="flaticon2-cross kt-font-danger"
+                      >
+                      </i>
+                    </a>
+                  </ng-template>
+
+                  <ng-template #fullname>
+                    <a href="javascript:;" class="kt-widget__username">
+                      {{ _user.firstname | titlecase }} {{ _user.lastname | titlecase }}
+                      <i *ngIf="_user.emailVerified" class="flaticon2-correct kt-font-success"></i>
+                      <i
+                        *ngIf="!_user.emailVerified"
+                        placement="right"
+                        ngbPopover="If your email is not verified, you cannot have access to your certificate"
+                        triggers="mouseenter:mouseleave"
+                        popoverTitle="Email not verified"
+                        class="flaticon2-cross kt-font-danger"
+                      >
+                      </i>
+                    </a>
+                  </ng-template>
+
+                  <ng-template [ngIf]="_user.occupation" [ngIfElse]="guest">
+                    <span class="kt-widget__subtitle">
+                      {{ _user.occupation }}
+                    </span>
+                  </ng-template>
+                  <ng-template #guest>
+                    <span class="kt-widget__subtitle" [innerHTML]="'PERSOINFOS.ASIDE.GUEST' | translate"></span>
+                  </ng-template>
                 </div>
                 <div class="kt-widget__action">
-                  <button *ngIf="!_user.emailVerified" type="button" class="btn btn-info btn-sm">Send email verification</button>&nbsp;
+                  <ng-template [ngIf]="!_user.emailVerified"  let-item="item">
+                    <button type="button" class="btn btn-info btn-sm" [innerHTML]="'PERSOINFOS.ASIDE.EMAILVERIFICATION' | translate" (click)="onSendMailVerification()" ></button>
+                  </ng-template>
+                  &nbsp;
                 </div>
               </div>
             </div>
@@ -127,16 +153,16 @@
                   <a href="javascript:;" class="kt-widget__data">{{ _user.email }}</a>
                 </div>
                 <div class="kt-widget__info">
-                  <span class="kt-widget__label">Phone:</span>
-                  <a href="javascript:;" class="kt-widget__data">44(76)34254578</a>
+                  <span class="kt-widget__label" [innerHTML]="'PERSOINFOS.ASIDE.PHONE' | translate"></span>
+                  <a href="javascript:;" class="kt-widget__data">{{ _user.phone }}</a>
                 </div>
                 <div class="kt-widget__info">
-                  <span class="kt-widget__label">Location:</span>
-                  <span class="kt-widget__data">Melbourne</span>
+                  <span class="kt-widget__label" [innerHTML]="'PERSOINFOS.ASIDE.LOCATION' | translate"></span>
+                  <span class="kt-widget__data">{{ _user.address.city }}</span>
                 </div>
               </div>
               <div class="kt-widget__items">
-                <a href="demo1/custom/apps/user/profile-1/overview.html" class="kt-widget__item ">
+                <a href="demo7/custom/apps/user/profile-1/overview.html" class="kt-widget__item ">
                   <span class="kt-widget__section">
                     <span class="kt-widget__icon">
                       <svg
@@ -165,12 +191,10 @@
                         </g>
                       </svg>
                     </span>
-                    <span class="kt-widget__desc">
-                      Profile Overview
-                    </span>
+                    <span class="kt-widget__desc" [innerHTML]="'PERSOINFOS.ASIDE.OVERVIEW' | translate"></span>
                   </span>
                 </a>
-                <a href="demo1/custom/apps/user/profile-1/personal-information.html" class="kt-widget__item kt-widget__item--active">
+                <a routerLink="/demo7/profil/personnal-information" class="kt-widget__item kt-widget__item--active">
                   <span class="kt-widget__section">
                     <span class="kt-widget__icon">
                       <svg
@@ -200,12 +224,10 @@
                         </g>
                       </svg>
                     </span>
-                    <span class="kt-widget__desc">
-                      Personal Information
-                    </span>
+                    <span class="kt-widget__desc" [innerHTML]="'PERSOINFOS.ASIDE.PERSO_INFOS' | translate"></span>
                   </span>
                 </a>
-                <a href="demo1/custom/apps/user/profile-1/account-information.html" class="kt-widget__item ">
+                <a href="demo7/custom/apps/user/profile-1/account-information.html" class="kt-widget__item ">
                   <span class="kt-widget__section">
                     <span class="kt-widget__icon">
                       <svg
@@ -233,12 +255,10 @@
                         </g>
                       </svg>
                     </span>
-                    <span class="kt-widget__desc">
-                      Account Information
-                    </span>
+                    <span class="kt-widget__desc" [innerHTML]="'PERSOINFOS.ASIDE.ACCOUNT_INFOS' | translate"></span>
                   </span>
                 </a>
-                <a href="demo1/custom/apps/user/profile-1/change-password.html" class="kt-widget__item ">
+                <a href="demo7/custom/apps/user/profile-1/change-password.html" class="kt-widget__item ">
                   <span class="kt-widget__section">
                     <span class="kt-widget__icon">
                       <svg
@@ -273,13 +293,10 @@
                         </g>
                       </svg>
                     </span>
-                    <span class="kt-widget__desc">
-                      Change Password
-                    </span>
+                    <span class="kt-widget__desc" [innerHTML]="'PERSOINFOS.ASIDE.PASSWORD_CHANGE' | translate"></span>
                   </span>
-                  <span class="kt-badge kt-badge--unified-danger kt-badge--sm kt-badge--rounded kt-badge--bolder">5</span>
                 </a>
-                <a href="demo1/custom/apps/user/profile-1/email-settings.html" class="kt-widget__item ">
+                <a href="demo7/custom/apps/user/profile-1/email-settings.html" class="kt-widget__item ">
                   <span class="kt-widget__section">
                     <span class="kt-widget__icon">
                       <svg
@@ -301,9 +318,7 @@
                         </g>
                       </svg>
                     </span>
-                    <span class="kt-widget__desc">
-                      F.A.Q
-                    </span>
+                    <span class="kt-widget__desc" [innerHTML]="'PERSOINFOS.ASIDE.FAQ' | translate"></span>
                   </span>
                 </a>
                 <a href="#" class="kt-widget__item" data-toggle="kt-tooltip" data-placement="right">
@@ -337,9 +352,7 @@
                         </g>
                       </svg>
                     </span>
-                    <span class="kt-widget__desc">
-                      Supports
-                    </span>
+                    <span class="kt-widget__desc" [innerHTML]="'PERSOINFOS.ASIDE.SUPPORT' | translate"></span>
                   </span>
                 </a>
               </div>
@@ -362,7 +375,8 @@
           <div class="kt-portlet">
             <div class="kt-portlet__head">
               <div class="kt-portlet__head-label">
-                <h3 class="kt-portlet__head-title">Personal Information <small>update your personal informaiton</small></h3>
+                <h3 class="kt-portlet__head-title" [innerHTML]="'PERSOINFOS.NORMAL.HEADER.TITLE' | translate"></h3>
+                <small class="ml-2" [innerHTML]="'PERSOINFOS.NORMAL.HEADER.DESC' | translate"></small>
               </div>
               <div class="kt-portlet__head-toolbar">
                 <div class="kt-portlet__head-wrapper">
@@ -417,14 +431,14 @@
                 </div>
               </div>
             </div>
-            <form [formGroup]="personnalInformationForm" class="kt-form kt-form--label-right">
+            <form [formGroup]="personnalInformationForm" (ngSubmit)="onSubmit()" class="kt-form kt-form--label-right">
               <div class="kt-portlet__body">
                 <div class="kt-section kt-section--first">
                   <div class="kt-section__body">
                     <div class="row">
                       <label class="col-xl-3"></label>
                       <div class="col-lg-9 col-xl-6">
-                        <h3 class="kt-section__title kt-section__title-sm">Customer Info:</h3>
+                        <h3 class="kt-section__title kt-section__title-sm" [innerHTML]="'PERSOINFOS.NORMAL.PROFIL_INFO' | translate"></h3>
                       </div>
                     </div>
                     <div class="form-group row">
@@ -444,7 +458,7 @@
                           <label class="kt-avatar__upload" data-toggle="kt-tooltip" title="" data-original-title="Change avatar">
                             <i class="fa fa-pen"></i>
                             <input
-                              (change)="detectFiles($event)"
+                              (change)="detectFiles($event, _user.email)"
                               formControlName="avatar"
                               type="file"
                               name="profile_avatar"
@@ -458,59 +472,185 @@
                       </div>
                     </div>
                     <div class="form-group row">
-                      <label class="col-xl-3 col-lg-3 col-form-label">First Name</label>
+                      <label class="col-xl-3 col-lg-3 col-form-label" [innerHTML]="'PERSOINFOS.NORMAL.FIRSTNAME' | translate"></label>
                       <div class="col-lg-9 col-xl-6">
-                        <input class="form-control" formControlName="firstname" type="text" value="Nick" />
+                        <input class="form-control" formControlName="firstname" type="text" ngModel="{{ _user.firstname }}" />
                       </div>
                     </div>
                     <div class="form-group row">
-                      <label class="col-xl-3 col-lg-3 col-form-label">Last Name</label>
+                      <label class="col-xl-3 col-lg-3 col-form-label" [innerHTML]="'PERSOINFOS.NORMAL.LASTNAME' | translate"></label>
                       <div class="col-lg-9 col-xl-6">
-                        <input class="form-control" formControlName="lastname" type="text" value="Bold" />
+                        <input class="form-control" formControlName="lastname" type="text" ngModel="{{ _user.lastname }}" />
                       </div>
                     </div>
                     <div class="form-group row">
-                      <label class="col-xl-3 col-lg-3 col-form-label">Company Name</label>
+                      <label class="col-xl-3 col-lg-3 col-form-label" [innerHTML]="'PERSOINFOS.NORMAL.OCCUPATION' | translate"></label>
                       <div class="col-lg-9 col-xl-6">
-                        <input class="form-control" formControlName="company" type="text" value="Loop Inc." />
-                        <span class="form-text text-muted">If you want your invoices addressed to a company. Leave blank to use your full name.</span>
+                        <input class="form-control" formControlName="occupation" type="text" ngModel="{{ _user.occupation }}" />
                       </div>
                     </div>
+                    <div class="form-group row">
+                      <label class="col-xl-3 col-lg-3 col-form-label" [innerHTML]="'PERSOINFOS.NORMAL.COMPANY_NAME' | translate"></label>
+                      <div class="col-lg-9 col-xl-6">
+                        <input class="form-control" formControlName="companyName" type="text" ngModel="{{ _user.companyName }}" />
+                      </div>
+                    </div>
+
                     <div class="row">
                       <label class="col-xl-3"></label>
                       <div class="col-lg-9 col-xl-6">
-                        <h3 class="kt-section__title kt-section__title-sm">Contact Info:</h3>
+                        <h3 class="kt-section__title kt-section__title-sm" [innerHTML]="'PERSOINFOS.NORMAL.CONTACT_INFO' | translate"></h3>
                       </div>
                     </div>
                     <div class="form-group row">
-                      <label class="col-xl-3 col-lg-3 col-form-label">Contact Phone</label>
+                      <label class="col-xl-3 col-lg-3 col-form-label" [innerHTML]="'PERSOINFOS.NORMAL.PHONE' | translate"></label>
                       <div class="col-lg-9 col-xl-6">
                         <div class="input-group">
                           <div class="input-group-prepend">
                             <span class="input-group-text"><i class="la la-phone"></i></span>
                           </div>
-                          <input type="text" class="form-control" value="+35278953712" placeholder="Phone" aria-describedby="basic-addon1" />
+                          <input
+                            type="text"
+                            formControlName="phone"
+                            class="form-control"
+                            ngModel="{{ _user.phone }}"
+                            placeholder="Phone"
+                            aria-describedby="basic-addon1"
+                          />
                         </div>
-                        <span class="form-text text-muted">We'll never share your email with anyone else.</span>
                       </div>
                     </div>
                     <div class="form-group row">
-                      <label class="col-xl-3 col-lg-3 col-form-label">Email Address</label>
+                      <label class="col-xl-3 col-lg-3 col-form-label" [innerHTML]="'PERSOINFOS.NORMAL.ADDRESS' | translate"></label>
                       <div class="col-lg-9 col-xl-6">
                         <div class="input-group">
                           <div class="input-group-prepend">
-                            <span class="input-group-text"><i class="la la-at"></i></span>
+                            <span class="input-group-text"><i class="la la-location-arrow"></i></span>
                           </div>
-                          <input type="text" class="form-control" value="nick.bold@loop.com" placeholder="Email" aria-describedby="basic-addon1" />
+                          <input
+                            type="text"
+                            formControlName="addressLine"
+                            class="form-control"
+                            ngModel="{{ _user.address.addressLine }}"
+                            placeholder="Address line"
+                            aria-describedby="basic-addon1"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label class="col-xl-3 col-lg-3 col-form-label" [innerHTML]="'PERSOINFOS.NORMAL.POSTCODE' | translate"></label>
+                      <div class="col-lg-9 col-xl-6">
+                        <div class="input-group">
+                          <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="la la-dribbble"></i></span>
+                          </div>
+                          <input
+                            type="text"
+                            formControlName="postCode"
+                            class="form-control"
+                            ngModel="{{ _user.address.postCode }}"
+                            aria-describedby="basic-addon1"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label class="col-xl-3 col-lg-3 col-form-label" [innerHTML]="'PERSOINFOS.NORMAL.CITY' | translate"></label>
+                      <div class="col-lg-9 col-xl-6">
+                        <div class="input-group">
+                          <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="la la-map-marker"></i></span>
+                          </div>
+                          <input
+                            type="text"
+                            formControlName="city"
+                            class="form-control"
+                            ngModel="{{ _user.address.city }}"
+                            aria-describedby="basic-addon1"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label class="col-xl-3 col-lg-3 col-form-label" [innerHTML]="'PERSOINFOS.NORMAL.WEBSITE' | translate"></label>
+                      <div class="col-lg-9 col-xl-6">
+                        <div class="input-group">
+                          <input type="text" formControlName="website" class="form-control" ngModel="{{ _user.website }}" />
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <label class="col-xl-3"></label>
+                      <div class="col-lg-9 col-xl-6">
+                        <h3 class="kt-section__title kt-section__title-sm">Social Networks:</h3>
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label class="col-xl-3 col-lg-3 col-form-label">Facebook</label>
+                      <div class="col-lg-9 col-xl-6">
+                        <div class="input-group">
+                          <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="la la-facebook-official"></i></span>
+                          </div>
+                          <input
+                            type="text"
+                            formControlName="facebook"
+                            class="form-control"
+                            ngModel="{{ _user.socialNetworks.facebook }}"
+                            aria-describedby="basic-addon1"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label class="col-xl-3 col-lg-3 col-form-label">Twitter</label>
+                      <div class="col-lg-9 col-xl-6">
+                        <div class="input-group">
+                          <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="la la-twitter"></i></span>
+                          </div>
+                          <input
+                            type="text"
+                            formControlName="twitter"
+                            class="form-control"
+                            ngModel="{{ _user.socialNetworks.twitter }}"
+                            aria-describedby="basic-addon1"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label class="col-xl-3 col-lg-3 col-form-label">linkedIn</label>
+                      <div class="col-lg-9 col-xl-6">
+                        <div class="input-group">
+                          <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="la la-linkedin"></i></span>
+                          </div>
+                          <input
+                            type="text"
+                            formControlName="linkedIn"
+                            class="form-control"
+                            ngModel="{{ _user.socialNetworks.linkedIn }}"
+                            aria-describedby="basic-addon1"
+                          />
                         </div>
                       </div>
                     </div>
                     <div class="form-group form-group-last row">
-                      <label class="col-xl-3 col-lg-3 col-form-label">Company Site</label>
+                      <label class="col-xl-3 col-lg-3 col-form-label">Instagram</label>
                       <div class="col-lg-9 col-xl-6">
                         <div class="input-group">
-                          <input type="text" class="form-control" placeholder="Username" value="loop" />
-                          <div class="input-group-append"><span class="input-group-text">.com</span></div>
+                          <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="la la-instagram"></i></span>
+                          </div>
+                          <input
+                            type="text"
+                            formControlName="instagram"
+                            class="form-control"
+                            ngModel="{{ _user.socialNetworks.instagram }}"
+                            aria-describedby="basic-addon1"
+                          />
                         </div>
                       </div>
                     </div>
@@ -522,7 +662,7 @@
                   <div class="row">
                     <div class="col-lg-3 col-xl-3"></div>
                     <div class="col-lg-9 col-xl-9">
-                      <button type="reset" class="btn btn-success">Submit</button>&nbsp;
+                      <button type="submit" class="btn btn-success">Submit</button>&nbsp;
                       <button type="reset" class="btn btn-secondary">Cancel</button>
                     </div>
                   </div>

@@ -40013,8 +40013,8 @@ body.swal2-height-auto {
   z-index: 0;
 }
 .kt-iconbox--animate-slower:after {
-  -webkit-animation: wave 30s infinite linear;
-  animation: wave 30s infinite linear;
+  -webkit-animation: wave 120s infinite linear;
+  animation: wave 120s infinite linear;
 }
 .kt-iconbox--animate-slow {
   background-color: #f7f8fa;

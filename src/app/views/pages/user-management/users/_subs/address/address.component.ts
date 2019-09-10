@@ -44,8 +44,7 @@ export class AddressComponent implements OnInit {
    */
   ngOnInit() {
     if (!this.addressSubject.value) {
-      const newAddress = new Address();
-      newAddress.clear();
+      const newAddress = new Address('', '', '');
       this.addressSubject.next(newAddress);
     }
 
@@ -69,7 +68,6 @@ export class AddressComponent implements OnInit {
     this.addressForm = this.fb.group({
       addressLine: [this.addressSubject.value.addressLine, Validators.required],
       city: [this.addressSubject.value.city, Validators.required],
-      state: [this.addressSubject.value.state, Validators.required],
       postCode: [this.addressSubject.value.postCode, Validators.required],
     });
   }
@@ -88,12 +86,10 @@ export class AddressComponent implements OnInit {
       return;
     }
 
-    const newAddress = new Address();
-    newAddress.clear();
+    const newAddress = new Address('', '', '');
     newAddress.addressLine = controls['addressLine'].value;
     newAddress.city = controls['city'].value;
     newAddress.postCode = controls['postCode'].value;
-    newAddress.state = controls['state'].value;
     this.addressSubject.next(newAddress);
   }
 

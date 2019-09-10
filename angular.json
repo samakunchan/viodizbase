@@ -36,14 +36,15 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "showCircularDependencies": false,
             "outputPath": "dist/viodiz",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
             "tsConfig": "src/tsconfig.app.json",
             "assets": ["src/favicon.ico", "src/assets"],
-            "styles": ["src/styles.scss"],
-            "scripts": ["src/assets/vendors/global/vendors.bundle.js", "src/assets/js/demo7/scripts.bundle.js"],
+            "styles": ["src/styles.scss", "src/assets/scss/toastr.scss"],
+            "scripts": ["src/assets/vendors/global/vendors.bundle.js", "src/assets/js/demo7/scripts.bundle.js", "src/assets/js/toastr.js"],
             "es5BrowserSupport": true
           },
           "configurations": {

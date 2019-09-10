@@ -14,16 +14,53 @@ export const locale = {
       APPS: 'Applications',
       DASHBOARD: 'Tableau de Bord',
     },
+    NOTIFICATIONS: {
+      SUCCESS: 'Votre profil a été mis à jour.',
+      SUCCESSPHOTO: 'Votre photo de profil a été mis à jour.',
+      FAILURE: 'Un problème est survenu lors de la mis à jour de votre profil.'
+    },
+    PERSOINFOS: {
+      ASIDE: {
+        EMAILVERIFICATION: 'Verifier votre email',
+        GUEST: 'Invité',
+        PHONE: 'Téléphone:',
+        LOCATION: 'Position:',
+        OVERVIEW: 'Vue d\'ensemble du profil',
+        PERSO_INFOS: 'Informations personnelles',
+        ACCOUNT_INFOS: 'Informations du compte',
+        PASSWORD_CHANGE: 'Changer de mot de passe',
+        FAQ: 'F.A.Q',
+        SUPPORT: 'Aide'
+      },
+      NORMAL: {
+        HEADER: {
+          TITLE: 'Informations personnelles',
+          DESC: 'mettez à jour vos informations personnelles'
+        },
+        PROFIL_INFO: 'Info profil:',
+        CONTACT_PHONE: 'Infos contact:',
+        NETWORK_INFO: 'Social Network:',
+        FIRSTNAME: 'Prénom',
+        LASTNAME: 'Nom',
+        OCCUPATION: 'Métier',
+        COMPANY_NAME: 'Nom de l\'entreprise',
+        PHONE: 'Téléphone de contact',
+        ADDRESS: 'Adresse',
+        POSTCODE: 'Code postale',
+        CITY: 'Ville',
+        WEBSITE: 'Site web'
+      }
+    },
     AUTH: {
       GENERAL: {
         OR: 'Ou',
         SUBMIT_BUTTON: 'Soumettre',
         NO_ACCOUNT: 'Ne pas avoir de compte?',
-        SIGNUP_BUTTON: 'Registre',
+        SIGNUP_BUTTON: 'S\'inscrire',
         FORGOT_BUTTON: 'Mot de passe oublié',
-        BACK_BUTTON: 'Back',
-        PRIVACY: 'Privacy',
-        LEGAL: 'Legal',
+        BACK_BUTTON: 'Retour',
+        PRIVACY: 'Confidentialité',
+        LEGAL: 'Mentions légales',
         CONTACT: 'Contact',
       },
       LOGIN: {
@@ -31,24 +68,24 @@ export const locale = {
         BUTTON: 'Sign In',
       },
       FORGOT: {
-        TITLE: 'Forgotten Password?',
-        DESC: 'Enter your email to reset your password',
-        SUCCESS: 'Your account has been successfully reset.',
+        TITLE: 'Mot de passe oublié?',
+        DESC: 'Entrz votre email afin de mettre à jour votre mot de passe',
+        SUCCESS: 'Votre compte a été mis à jour avec succès.',
       },
       REGISTER: {
-        TITLE: 'Sign Up',
+        TITLE: 'S\'inscrire',
         DESC: 'Enter your details to create your account',
         SUCCESS: 'Your account has been successfuly registered.',
       },
       INPUT: {
         EMAIL: 'Email',
-        FULLNAME: 'Fullname',
+        FULLNAME: 'Nom complet',
         PASSWORD: 'Mot de passe',
         CONFIRM_PASSWORD: 'Confirm Password',
-        USERNAME: "Nom d'utilisateur",
+        USERNAME: 'Nom d\'utilisateur',
       },
       VALIDATION: {
-        INVALID: "{{name}} n'est pas valide",
+        INVALID: '{{name}} n\'est pas valide',
         REQUIRED: '{{name}} est requis',
         MIN_LENGTH: '{{name}} minimum length is {{min}}',
         AGREEMENT_REQUIRED: 'Accepting terms & conditions are required',
@@ -62,7 +99,7 @@ export const locale = {
     },
     ECOMMERCE: {
       COMMON: {
-        SELECTED_RECORDS_COUNT: "Nombre d'enregistrements sélectionnés: ",
+        SELECTED_RECORDS_COUNT: 'Nombre d\'enregistrements sélectionnés: ',
         ALL: 'All',
         SUSPENDED: 'Suspended',
         ACTIVE: 'Active',

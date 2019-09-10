@@ -22,7 +22,7 @@ import { AuthNoticeService, AuthService, Login } from '../../../../core/auth';
 // };
 // julie3@test.com
 const DEMO_PARAMS = {
-  EMAIL: 'samakunchan@gmail.com',
+  EMAIL: 'julie@test.com',
   PASSWORD: '123456',
 };
 

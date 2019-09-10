@@ -302,7 +302,7 @@ export class MenuConfig {
               submenu: [
                 {
                   title: 'Users',
-                  page: 'user-management/user',
+                  page: 'user-management/users',
                 },
                 {
                   title: 'Roles',
@@ -386,6 +386,14 @@ export class MenuConfig {
           alignment: 'left',
           page: 'dashboard',
           translate: 'MENU.DASHBOARD',
+        },
+        {
+          title: 'Users',
+          root: true,
+          icon: 'flaticon-user',
+          alignment: 'left',
+          page: 'user-management/users',
+          translate: 'MENU.USERS',
         },
         {
           title: 'Builder',
@@ -687,7 +695,7 @@ export class MenuConfig {
               submenu: [
                 {
                   title: 'Users',
-                  page: 'user-management/user',
+                  page: 'user-management/users',
                 },
                 {
                   title: 'Roles',

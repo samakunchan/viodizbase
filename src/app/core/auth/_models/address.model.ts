@@ -1,13 +1,3 @@
 export class Address {
-  addressLine: string;
-  city: string;
-  state: string;
-  postCode: string;
-
-  clear() {
-    this.addressLine = '';
-    this.city = '';
-    this.state = '';
-    this.postCode = '';
-  }
+  constructor(public addressLine?: string, public city?: string, public postCode?: string) {}
 }

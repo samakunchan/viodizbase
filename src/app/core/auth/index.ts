@@ -6,8 +6,19 @@ export { AuthNoticeService } from './auth-notice/auth-notice.service';
 export { RolesDataSource } from './_data-sources/roles.datasource';
 export { UsersDataSource } from './_data-sources/users.datasource';
 
+export { Sha256 } from './_class/sha256';
 // ACTIONS
-export { Login, Logout, Register, UserRequested, UserLoaded, AuthActionTypes, AuthActions, CurrentUserUpdate } from './_actions/auth.actions';
+export {
+  Login,
+  Logout,
+  Register,
+  UserRequested,
+  UserLoaded,
+  AuthActionTypes,
+  AuthActions,
+  CurrentUserUpdatePhoto,
+  CurrentUserUpdateAddInfos,
+} from './_actions/auth.actions';
 export { AllPermissionsRequested, AllPermissionsLoaded, PermissionActionTypes, PermissionActions } from './_actions/permission.actions';
 export {
   RoleOnServerCreated,
@@ -89,10 +100,19 @@ export { ModuleGuard } from './_guards/module.guard';
 
 // MODELS
 export { User } from './_models/user.model';
+export { CoursesFollowed, Courses } from './_models/courses.model';
+export { QCMState } from './_models/qcm.model';
+export { QCMQuestions, QCMResponses } from './_models/qcm.model';
+export { Certificat } from './_models/certificat.model';
+export { SettingCurrentUser } from './_models/settingCurrentUser.model';
+export { ViodizStudent } from './_models/viodiz-student.model';
+export { ViodizProf, Groupes } from './_models/viodiz-prof.model';
+
 export { Permission } from './_models/permission.model';
 export { Role } from './_models/role.model';
 export { Address } from './_models/address.model';
 export { SocialNetworks } from './_models/social-networks.model';
+export { Metadata } from './_models/metadata.model';
 export { AuthNotice } from './auth-notice/auth-notice.interface';
 
 export { AuthDataContext } from './_server/auth.data-context';

@@ -6,6 +6,7 @@ import { PersonalInformationComponent } from './personal-information/personal-in
 import { CoreModule } from '../../../core/core.module';
 import { NgbPopoverModule } from '@ng-bootstrap/ng-bootstrap';
 import { ReactiveFormsModule } from '@angular/forms';
+import { TranslateModule } from '@ngx-translate/core';
 
 const routes: Routes = [
   {
@@ -26,6 +27,6 @@ const routes: Routes = [
 ];
 @NgModule({
   declarations: [ProfilComponent, PersonalInformationComponent],
-  imports: [CommonModule, RouterModule.forChild(routes), CoreModule, NgbPopoverModule, ReactiveFormsModule],
+  imports: [CommonModule, RouterModule.forChild(routes), CoreModule, NgbPopoverModule, ReactiveFormsModule, TranslateModule],
 })
 export class ProfilModule {}
